@@ -53,6 +53,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(150, 20);
             this.textBox1.TabIndex = 1;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // textBox2
             // 
@@ -62,14 +63,16 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(150, 20);
             this.textBox2.TabIndex = 2;
+            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
             // 
             // trackBar
             // 
-            this.trackBar.Location = new System.Drawing.Point(198, 187);
+            this.trackBar.Location = new System.Drawing.Point(194, 187);
             this.trackBar.Maximum = 100;
             this.trackBar.Name = "trackBar";
-            this.trackBar.Size = new System.Drawing.Size(228, 45);
+            this.trackBar.Size = new System.Drawing.Size(237, 45);
             this.trackBar.TabIndex = 3;
+            this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
             // 
             // Form1
             // 
