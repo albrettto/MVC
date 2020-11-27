@@ -21,47 +21,51 @@ namespace MVC_2
         }
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-                model.setValue(textBox1, textBox2);
+            if (e.KeyCode == Keys.Enter) //если нажат Enter
+                model.setValue(Convert.ToInt32(textBox1.Text),1);
         }
 
         private void textBox2_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                model.setValue(textBox2, textBox1);
+                model.setValue(Convert.ToInt32(textBox2.Text), 2);
         }
         private void trackBar_Scroll(object sender, EventArgs e)
         {
-            model.setValue(trackBar, textBox1, textBox2);
+            model.setValue(trackBar.Value, 0);
         }
         public void updateFromMVC(object sender, EventArgs e)
         {
             progressBar.Value = model.getValue();
             trackBar.Value = model.getValue();
+            if(model.getCheck() == 0) //если значение получено из трэкбара
+            {
+                textBox1.Text = model.getValue().ToString();
+                textBox2.Text = (model.getValue() + 1).ToString();
+            }
+            else if(model.getCheck() == 1) //если значение получено из текстбокс1
+               textBox2.Text = (model.getValue() + 1).ToString();
+            else //если значение получено из текстбокс2
+                textBox1.Text = (model.getValue() - 1).ToString();
         }
         public class MVC
         {
             private int value;
+            public int check;
             public System.EventHandler observers;
-            public void setValue(TextBox T1, TextBox T2)
+            public void setValue(int value, int check)
             {
-                value = Convert.ToInt32(T1.Text);
-                if (T1.Name == "textBox1")
-                    T2.Text = (value + 1).ToString();
-                else
-                    T2.Text = (value - 1).ToString();
-                observers.Invoke(this, null);
-            }
-            public void setValue(TrackBar tr, TextBox T1, TextBox T2)
-            {
-                value = tr.Value;
-                T1.Text = value.ToString();
-                T2.Text = (value + 1).ToString();
+                this.value = value;
+                this.check = check;
                 observers.Invoke(this, null);
             }
             public int getValue()
             {
                 return value;
+            }
+            public int getCheck()
+            {
+                return check;
             }
         }
     }
